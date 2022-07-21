@@ -1,0 +1,26 @@
+'Define event name as  Worksheet_SelectionChange(ByVal Target As Range)
+Sub Worksheet_SelectionChange(ByVal Target As Range)
+ 
+'Declare variables and data types
+Dim ptc As PivotTable, Value As Variant, Rng As Range
+ 
+'Check if only 1 cell is selected
+If Target.Cells.Count = 1 Then
+ 
+    'Iterate through each pivot table in active worksheet
+    For Each ptc In ActiveSheet.PivotTables
+         
+        'If selected cell intersects with pivot table cell range
+        If Not Intersect(Target, Range(ptc.TableRange1.Address)) Is Nothing Then
+ 
+            'Does the cell contain a http or https link?
+            If Left(Target.Value, 7) = "https://" Or Left(Target.Value, 8) = "https://" Then
+ 
+                'Open hyperlink
+                ActiveWorkbook.FollowHyperlink Address:=Target.Value, NewWindow:=True
+            End If
+        End If
+    Next ptc
+End If
+ 
+End Sub

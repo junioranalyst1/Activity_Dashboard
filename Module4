@@ -1,0 +1,10 @@
+Sub FiveJanuary()
+'
+' FiveJanuary Macro
+'
+
+'
+    Sheets("Data").Select
+    Range("G7").Select
+    Selection.Hyperlinks(1).Follow NewWindow:=False, AddHistory:=True
+End Sub
